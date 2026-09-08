@@ -1,29 +1,20 @@
 {
-  "name": "Gator Rover ROS 2 Humble",
+  "name": "gator-rover",
   "build": {
-    "dockerfile": "Dockerfile",
-    "context": ".."
+    "dockerfile": "Dockerfile"
   },
+  "runArgs": [
+    "--net=host",
+    "--ipc=host"
+  ],
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-vscode.cpptools",
-        "ms-python.python",
         "ms-iot.vscode-ros",
-        "twxs.cmake",
-        "redhat.vscode-xml",
-        "github.vscode-pull-request-github"
-      ],
-      "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash",
-        "python.defaultInterpreterPath": "/usr/bin/python3"
-      }
+        "ms-vscode.cpptools",
+        "ms-python.python"
+      ]
     }
   },
-  "mounts": [
-    "source=${localWorkspaceFolder},target=/workspace,type=bind"
-  ],
-  "workspaceFolder": "/workspace",
-  "postCreateCommand": "bash -c 'source /opt/ros/humble/setup.bash && rosdep update && colcon build --symlink-install'",
-  "remoteUser": "root"
+  "postCreateCommand": "rosdep update && echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc"
 }

@@ -1,78 +1,62 @@
-# 🐊 Gator Rover — Software Subteam Workspace
+# Gator Rover Software
 
-Welcome to the official **Gator Rover** software repository! This repository hosts the ROS 2 packages, simulation pipelines, and autonomy stack for our NASA Lunabotics rover.
+Software stack for the Gator Rover robotics team competing in the NASA Lunabotics Challenge. Built on **ROS 2 Humble** and **Ubuntu 22.04 LTS**.
 
----
+## Getting Started
 
-## 🚀 Quickstart for Team Members
+### Option A: VS Code Dev Container (Recommended)
+Requires [Docker](https://www.docker.com/) and [VS Code](https://code.visualstudio.com/) with the **Dev Containers** extension.
 
-### Option 1: VS Code Dev Containers (Recommended — Zero Configuration)
-1. Install **Docker Desktop** (Windows/Mac) or Docker Engine (Linux) and **VS Code**.
-2. Install the **Dev Containers** extension in VS Code.
-3. Open this repository folder in VS Code.
-4. When prompted (or press `Ctrl+Shift+P` / `Cmd+Shift+P` $\rightarrow$ **"Dev Containers: Reopen in Container"**).
-5. Open an integrated terminal (``Ctrl + ` ``). ROS 2 Humble and all dependencies are pre-installed!
+1. Open this folder in VS Code.
+2. Click **Reopen in Container** when prompted (or open the Command Palette `Ctrl+Shift+P` / `Cmd+Shift+P` and run `Dev Containers: Reopen in Container`).
+3. VS Code will spin up the environment with ROS 2 Humble and all core dependencies pre-installed.
 
-### Option 2: Native WSL 2 / Ubuntu 22.04 LTS
-If you already set up **ROS 2 Humble** natively in Ubuntu:
+### Option B: Local Setup (Ubuntu 22.04 / WSL 2)
+Requires a native [ROS 2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) desktop installation.
+
 ```bash
-# 1. Clone this repository into your workspace
-cd ~/rover_ws  # or your preferred folder
-git clone https://github.com/your-org/gator-rover.git
-cd gator-rover
+# Clone the repository
+git clone https://github.com/MonishB123/software-gator-rover.git
+cd software-gator-rover
 
-# 2. Install package dependencies
+# Install package dependencies
 rosdep update
 rosdep install --from-paths src --ignore-src -r -y
 
-# 3. Build workspace
+# Build the workspace
 colcon build --symlink-install
-
-# 4. Source the built workspace
 source install/setup.bash
 ```
 
----
+## Running the Core Node
 
-## 🧪 Testing the Starter Node
-
-Launch the starter rover heartbeat node:
+Launch the status heartbeat node:
 ```bash
 ros2 launch rover_core rover_core.launch.py
 ```
 
-In a second terminal, send a test drive command to verify subscriber communication:
+In a separate terminal, test publishing velocity commands:
 ```bash
-ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.5}, angular: {z: 0.2}}" --once
+ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.5}, angular: {z: 0.0}}" --once
 ```
 
-You should see the node acknowledge the command and output its telemetry heartbeat!
-
----
-
-## 🗂️ Repository Structure
+## Repository Layout
 
 ```
-gator-rover/
-├── .devcontainer/               # VS Code Docker development container
-├── Dashboard.md                 # Obsidian Map of Content & System Hub
-├── Tasks/                       # New member task guides & roster
-├── Subsystems/                  # System architecture & hardware specs
-├── Competition/                 # NASA Lunabotics 2026 specs & rules
-├── src/                         # ROS 2 Source Packages
-│   └── rover_core/              # Core status, heartbeat, & telemetry node
+software-gator-rover/
+├── .devcontainer/       # Dev container configuration (ROS 2 Humble)
+├── src/
+│   └── rover_core/      # Telemetry, heartbeat, and base status node
 └── README.md
 ```
 
----
+## Contributing
 
-## 🌿 Git Contribution Workflow
-
-1. Always branch from `main`:
+1. Always create a branch off `main`:
    ```bash
    git checkout main
    git pull origin main
-   git checkout -b feature/your-feature-name
+   git checkout -b feature/<your-name>-<feature-description>
    ```
-2. Commit your changes with clear messages.
-3. Push to your branch and open a **Pull Request (PR)** on GitHub.
+2. Build and verify your code locally before pushing.
+3. Commit with concise messages and submit a Pull Request (PR) to `main`.
