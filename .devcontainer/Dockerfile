@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-teleop-twist-keyboard \
     ros-humble-cv-bridge \
     ros-humble-desktop \
+    ros-humble-urdf-tutorial \
     ros-humble-xacro \
     python3 \
     python3-pip \
@@ -20,3 +21,4 @@ RUN pip3 install opencv-python
 WORKDIR /app
 
 COPY . .
+
